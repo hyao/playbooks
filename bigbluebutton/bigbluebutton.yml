@@ -1,0 +1,75 @@
+---
+- hosts: bbb
+  sudo: True
+  gather_facts: False
+
+  tasks:
+  #a simple task to see whether ansible is running correctly
+  - name: echo running
+    command: echo 'task is running'
+
+  #may need to use a cutomized sources.list file for apt-get to speed up 
+  #this task; otherwise run this task manually so that one can see progress
+  #- name: copy sources.list to VM
+  #  copy: src=files/ubuntu-12.04-zhcn-sources.list dest=/etc/apt/sources.list 
+  #        owner=root group=root mode=0644
+
+  #- name: update apt cache
+  #  apt: update_cache=yes upgrade=dist
+
+  - name: install some common packages
+    apt: pkg=$item state=latest
+    with_items:
+    - htop
+  
+  - name: add the bigbluebutton key
+    apt_key: url=http://ubuntu.bigbluebutton.org/bigbluebutton.asc state=present
+
+  - name: add bigbluebutton repo
+    apt_repository: repo='deb http://ubuntu.bigbluebutton.org/lucid_dev_081/ bigbluebutton-lucid main' 
+
+  #setup libreoffice
+  - name: get stub package for openoffice
+    get_url: url=http://bigbluebutton.googlecode.com/files/openoffice.org_1.0.4_all.deb dest=/home/ubuntu/openoffice.org_1.0.4_all.deb
+
+  - name: install stub package for openoffice
+    command: dpkg -i /home/ubuntu/openoffice.org_1.0.4_all.deb
+
+  - name: add apt repo for libreoffice
+    apt_repository: repo=ppa:libreoffice/libreoffice-4-0
+
+  #need to run manually as need to press ok for an EULA license
+  - name: install libreoffice
+    apt: pkg=$item state=present
+    with_items:
+      - libreoffice-common
+      - libreoffice
+   
+  #install ruby
+  - name: install libreadline5
+    apt: pkg=libreadline5 state=latest
+
+  - name: get ruby
+    get_url: url=https://bigbluebutton.googlecode.com/files/ruby1.9.2_1.9.2-p290-1_amd64.deb dest=/home/ubuntu/ruby1.9.2_1.9.2-p290-1_amd64.deb
+
+  - name: install ruby
+    command: dpkg -i /home/ubuntu/ruby1.9.2_1.9.2-p290-1_amd64.deb
+
+  - name: configure ruby
+    shell: sudo update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby1.9.2 500
+           --slave /usr/bin/ri ri /usr/bin/ri1.9.2 
+           --slave /usr/bin/irb irb /usr/bin/irb1.9.2 
+           --slave /usr/bin/erb erb /usr/bin/erb1.9.2 
+           --slave /usr/bin/rdoc rdoc /usr/bin/rdoc1.9.2
+
+  - name: configure ruby gem
+    shell: sudo update-alternatives --install /usr/bin/gem gem /usr/bin/gem1.9.2 500
+
+  #the following task takes quite a while; maybe run manually so that progress
+  #can be seen
+  #- name: run install-ffmpeg.sh
+  #  script: scripts/install-ffmpeg.sh
+
+  - name: install bigbluebutton
+    apt: pkg=bigbluebutton state=latest
+
