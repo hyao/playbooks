@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  sudo: True
+  gather_facts: False
+
+  tasks:
+  - include: base.yml
+  - include: desktop.yml 
+  - include: xen.yml
+  - include: tools.yml
+
+  #install autoexpect and automation tasks that need interactive inputs
+  - include: expect.yml
+  - include: chinese.yml
+
+# separate play to to configure git for current user
+- include: configure_git.yml

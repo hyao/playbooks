@@ -1,0 +1,23 @@
+---
+- name: install xen hypervisor and virt-manager
+  apt: pkg=$item state=present
+  with_items:
+    - xen-hypervisor-4.1-amd64
+    - virt-manager
+    #install hal for virt-manager
+    - hal
+
+- name: modify /etc/xen/xend-config.sxp - 1
+  lineinfile: dest=/etc/xen/xend-config.sxp
+              regexp='^#\(xend-unix-server no\)'
+              line='(xend-unix-server yes)'
+              backrefs=yes
+              backup=yes
+
+- name: modify /etc/xen/xend-config.sxp - 2
+  lineinfile: dest=/etc/xen/xend-config.sxp
+              regexp='^#\(xend-unix-path /var/lib/xend/xend-socket\)'
+              line='(xend-unix-path /var/lib/xend/xend-socket)'
+              backrefs=yes
+              backup=yes
+

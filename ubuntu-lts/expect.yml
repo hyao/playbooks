@@ -1,0 +1,4 @@
+---
+- name: install autoexpect
+  apt: pkg=expect-dev state=present
+

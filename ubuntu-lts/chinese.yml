@@ -1,0 +1,6 @@
+---
+- name: install fcitx
+  apt: pkg=$item state=latest
+  with_items:
+    - fcitx
+    - fcitx-table-erbi

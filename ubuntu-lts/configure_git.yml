@@ -1,0 +1,12 @@
+---
+#configure git client for the current user 
+- hosts: localhost
+  sudo: False
+  gather_facts: False
+
+  tasks:
+  - name: configure git 
+    shell: git config --global color.ui true &&
+           git config --global user.name 'Heling Yao' &&
+           git config --global user.email 'yaoheling@gmail.com'
+ 
