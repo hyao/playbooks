@@ -1,0 +1,8 @@
+#test one playbook a time
+---
+- hosts: localhost
+  sudo: True
+  gather_facts: False
+
+  tasks:
+  - include: desktop.yml

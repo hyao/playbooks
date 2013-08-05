@@ -12,3 +12,5 @@
     #- flashplugin-installer
     - ttf-xfree86-nonfree # used for terminal
     - chromium-browser
+
+- include: skype.yml
