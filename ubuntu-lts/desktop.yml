@@ -7,7 +7,6 @@
     - usb-creator-gtk
     - unetbootin
     #the following 2 packages are best installed manually
-    #the first installation of mscorefonts would install flash player again
     #- ttf-mscorefonts-installer
     #- flashplugin-installer
     - ttf-xfree86-nonfree # used for terminal

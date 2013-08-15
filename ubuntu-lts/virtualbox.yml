@@ -1,0 +1,10 @@
+---
+- name: add virtualbox repo key
+  apt_key: url=http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc
+           state=present
+
+- name: add virtualbox repo
+  apt_repository: repo='deb http://download.virtualbox.org/virtualbox/debian precise contrib'     state=present
+
+- name: install virtualbox-4.2
+  apt: pkg=virtualbox-4.2 update_cache=yes state=latest
