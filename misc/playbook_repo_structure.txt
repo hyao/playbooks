@@ -1,0 +1,76 @@
+.
+├── bootstrap.yml
+├── common
+│   ├── files
+│   │   ├── ansible.yml
+│   │   ├── groups.yml
+│   │   └── users.yml
+│   ├── handlers
+│   │   └── main.yml
+│   ├── tasks
+│   │   ├── groups.yml
+│   │   ├── main.yml
+│   │   └── users.yml
+│   └── templates
+│       ├── hostname.j2
+│       ├── hosts.j2
+│       ├── network_interfaces.j2
+│       ├── resolv.conf.j2
+│       └── sudoers.envoy.j2
+├── common.yml
+├── dbservers
+│   ├── handlers
+│   │   └── main.yml
+│   └── tasks
+│       ├── createdb.yml
+│       └── main.yml
+├── dbservers.yml
+├── group_vars
+│   ├── env.yml
+│   └── unstable.yml
+├── homebase
+│   ├── handlers
+│   │   └── main.yml
+│   ├── tasks
+│   │   └── main.yml
+│   └── templates
+│       ├── hbd.conf.j2
+│       ├── hbd.py
+│       └── supervisord.conf.j2
+├── homebase.yml
+├── host_vars
+│   ├── envdhb001.yml
+│   ├── envdhb002.yml
+│   ├── envpan001.yml
+│   └── unstable.yml
+├── jshomebase.yml
+├── keys
+│   ├── ansible
+│   ├── ansible_id_rsa
+│   ├── hyao
+├── login
+│   ├── handlers
+│   │   └── main.yml
+│   ├── tasks
+│   │   └── main.yml
+│   └── templates
+│       ├── logind.conf.j2
+│       ├── logind.py
+│       └── supervisord.conf.j2
+├── login.yml
+├── media.yml
+├── misc
+├── README.md
+├── sites
+├── templates
+│   └── nginx
+│       └── media.conf.j2
+├── unstable.yml
+├── webservers
+│   ├── handlers
+│   │   └── main.yml
+│   └── tasks
+│       └── main.yml
+└── webservers.yml
+
+38 directories, 100 files
