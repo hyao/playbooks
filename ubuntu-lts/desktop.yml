@@ -4,6 +4,7 @@
   with_items:
     - myunity
     - indicator-multiload
+    - gnote
     - usb-creator-gtk
     - unetbootin
     #the following 2 packages are best installed manually
