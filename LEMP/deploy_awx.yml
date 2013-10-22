@@ -1,11 +1,11 @@
+#1. install packages for awx
+#2. create swap file on server
+
 ---
 - hosts: awx
   sudo: yes
 
   roles:
-    - common
+    - awx 
 
-#  tasks:
-#  - name: echo 
-#    command: /bin/echo progressing...
   
