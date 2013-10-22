@@ -1,0 +1,11 @@
+---
+- hosts: all 
+  sudo: yes
+
+  roles:
+    - common
+
+#  tasks:
+#  - name: echo 
+#    command: /bin/echo progressing...
+  

@@ -1,0 +1,27 @@
+---
+- name: create ansible user 
+  user: name=ansible state=present shell=/bin/bash
+
+- name: create ssh dir for ansible
+  file: path=/home/ansible/.ssh owner=ansible group=ansible mode=0700 
+        state=directory
+
+- name: copy ssh keys to ansible home - private key
+  copy: src=files/ansible-id_rsa
+        dest=/home/ansible/.ssh/id_rsa
+        owner=ansible group=ansible mode=0600
+
+- name: copy ssh keys to ansible home - public key
+  copy: src=files/ansible-id_rsa.pub
+        dest=/home/ansible/.ssh/id_rsa.pub
+        owner=ansible group=ansible mode=0644
+
+- name: copy ansible_sudo file over to enable password less sudo
+  copy: src=files/ansible_sudo
+        dest=/etc/sudoers.d/ansible
+        owner=root group=root mode=0440
+
+- name: add ssh key to authorized_key
+  copy: src=files/ansible-id_rsa.pub 
+        dest=/home/ansible/.ssh/authorized_keys
+        owner=ansible group=ansible mode=0644
