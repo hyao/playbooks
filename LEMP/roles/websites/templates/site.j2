@@ -1,0 +1,35 @@
+server {
+    listen      80;
+    server_name {{ site.server_name }};
+    root        /home/{{ site.user }}/{{ site.dir}}/public;
+    index       index.php index.html index.htm; 
+
+    access_log  /home/{{ site.user }}/{{ site.dir }}/logs/access.log;
+    error_log   /home/{{ site.user }}/{{ site.dir }}/logs/error.log;
+
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        expires max;
+        log_not_found off;
+        access_log off;
+    }
+    
+    location / {
+        index       index.html index.htm index.php;
+        try_files   $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$
+    {
+        fastcgi_pass 127.0.0.1:{{ site.php_pool }};
+        fastcgi_index index.php;
+        try_files $uri =404;
+        fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+
+        fastcgi_param PHP_VALUE error_log=$document_root/error_log;
+
+        include /etc/nginx/fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_path_info$fastcgi_script_name;
+    }
+}

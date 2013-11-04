@@ -1,0 +1,8 @@
+# playbook to test some funtionalities of ansible
+---
+- hosts: web
+
+  tasks:
+    - name: test when clause 
+      command: echo b
+      when: inventory_hostname == 'de1'

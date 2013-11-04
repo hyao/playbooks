@@ -1,4 +1,4 @@
-Sonnenglas-Infrastructure
+LEMP Playbooks
 =========================
 
 bootstrap.yml is to get all servers ready for the main playbooks; use the following command line to run it:

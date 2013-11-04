@@ -1,0 +1,15 @@
+---
+- name: install nginx
+  apt: package=nginx state=latest
+  notify:
+    - start nginx
+
+- name: backup nginx.conf to nginx.conf.orig
+  command: creates=/etc/nginx/nginx.conf.orig chdir=/etc/nginx
+           cp nginx.conf nginx.conf.orig
+
+- name: copy nginx.conf to webserver
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf
+            owner=root group=root mode=0644
+  notify:
+    - restart nginx

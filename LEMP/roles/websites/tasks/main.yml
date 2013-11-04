@@ -1,0 +1,18 @@
+---
+- name: Ensure the user exists
+  user: name={{ site.user }} state=present
+  
+- name: Ensure {{ site.user }} has {{ site.dir }} and public, logs subdirs in his home directory
+  file: path=/home/{{ site.user }}/{{ site.dir }}{{ item }} state=directory recurse=yes owner={{ site.user }} group={{ site.user }}
+  with_items:
+    - /
+    - /public
+    - /logs
+
+- name: Ensure there is a site entry for {{ site.server_name }}
+  template: src=site.j2 dest=/etc/nginx/sites-available/{{ site.server_name }}
+  
+- name: Ensure the site {{ site.server_name }} is enabled
+  file: src=/etc/nginx/sites-available/{{ site.server_name }} dest=/etc/nginx/sites-enabled/{{ site.server_name }} state=link
+  notify: 
+    - restart nginx

@@ -1,0 +1,6 @@
+- name: install ufw
+  apt: pkg=ufw state=present
+
+- name: run ufw commands to set up firewall rules
+  script: ../scripts/setup-firewall-awx.sh
+

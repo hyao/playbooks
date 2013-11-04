@@ -1,0 +1,16 @@
+---
+- hosts: web 
+  sudo: yes
+  vars_files:
+    - roles/php5/vars/pool1.yml
+
+  roles:
+    - php5
+
+- hosts: web 
+  sudo: yes
+  vars_files:
+    - roles/php5/vars/pool2.yml
+
+  roles:
+    - php5

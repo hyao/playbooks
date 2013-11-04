@@ -1,0 +1,19 @@
+---
+- name: install php5-fpm
+  apt: package=php5-fpm state=latest
+
+- name: backup php5-fpm config files
+  command: creates=/etc/php5/fpm/{{ item }}.orig chdir=/etc/php5/fpm
+           cp {{ item }} {{ item }}.orig
+  with_items:
+    - php.ini
+    - php-fpm.conf
+
+- name: backup www.conf and default pool 
+  command: creates=/etc/php5/fpm/pool.d/www.conf.orig 
+           chdir=/etc/php5/fpm/pool.d
+           mv www.conf www.conf.orig
+  notify:
+    - restart php5-fpm
+
+- include: fpm-pool.yml

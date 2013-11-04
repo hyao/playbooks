@@ -1,0 +1,14 @@
+---
+- hosts: web
+  sudo: yes 
+  gather_facts: True 
+
+  vars_files:
+    - roles/websites/files/sites-de1.yml
+
+  tasks:
+    - include: roles/websites/tasks/main.yml site=$item
+      with_items: $sites
+
+  handlers:
+    - include: roles/websites/handlers/main.yml
