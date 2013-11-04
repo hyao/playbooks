@@ -1,5 +1,5 @@
 ---
-- name: ssh hardening, disable root login, use port 22000, turn off sftp etc
+- name: ssh hardening, disable root login, use port 22000 etc
   template: src=../templates/sshd_config dest=/etc/ssh/sshd_config 
              owner=root group=root mode=0644
   notify:

@@ -1,11 +1,13 @@
 ---
-- hosts: all 
+- hosts: web 
   sudo: yes
+  vars_files:
+    - roles/php5/vars/pool2.yml
 
   roles:
     - common
+    - dbservers
+    - webservers
+    - php5
+    - supervisor
 
-#  tasks:
-#  - name: echo 
-#    command: /bin/echo progressing...
-  

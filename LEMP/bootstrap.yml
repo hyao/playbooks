@@ -2,12 +2,12 @@
 #1. create ansible user and use key based ssh login
 #2. need to use root for ssh login
 ---
-- hosts: all 
+- hosts: localhost 
   user: root
 
   tasks:
   - include: roles/common/tasks/ansible-user.yml
-  - include: roles/common/tasks/ssh.yml
+  #- include: roles/common/tasks/ssh.yml
 
   handlers:
   - include: roles/common/handlers/main.yml
