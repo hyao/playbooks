@@ -1,4 +1,8 @@
 ---
+- name: backup original sshd_config
+  command: chdir=/etc/ssh creates=sshd_config.orig 
+           /bin/mv sshd_config sshd_config.orig
+
 - name: ssh hardening, disable root login, use port 22000 etc
   template: src=../templates/sshd_config dest=/etc/ssh/sshd_config 
              owner=root group=root mode=0644
