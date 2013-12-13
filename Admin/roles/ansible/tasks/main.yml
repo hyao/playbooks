@@ -1,0 +1,7 @@
+- name: install some packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - python-pip
+
+- name: install ansible using pip
+  pip: name=ansible

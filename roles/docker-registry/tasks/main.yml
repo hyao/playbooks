@@ -1,0 +1,26 @@
+---
+- name: install packages including git, gunicorn etc
+  apt: pkg={{ item }} state=present
+  with_items:
+    - git
+    - gunicorn
+    - python-gevent
+    - python-flask
+    - python-yaml
+    - python-simplejson
+    - python-pip
+    - redis-server
+    - python-redis
+
+- name: install some python dependencies
+  pip: name={{ item }}
+  with_items:
+    - rsa
+    - requests
+
+- name: clone docker-registry repo
+  git: repo=https://github.com/dotcloud/docker-registry.git
+       dest=/home/ansible/docker-registry
+
+- name: chown docker-registry repo
+  command: chown -R ansible:ansible /home/ansible/docker-registry
