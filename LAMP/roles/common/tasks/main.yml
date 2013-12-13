@@ -1,0 +1,7 @@
+- name: install LAMP packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - apache2
+    - mysql-server
+    - php5-mysql
+
