@@ -1,0 +1,17 @@
+- name: add varnish apt key
+  apt_key: url=http://repo.varnish-cache.org/debian/GPG-key.txt state=present
+
+- name: add varnish repo
+  apt_repository: repo='deb http://repo.varnish-cache.org/ubuntu/ precise varnish-3.0' update_cache=yes
+
+- name: install varnish
+  apt: pkg=varnish state=latest
+
+- name: backup /etc/default/varnish 
+  command: chdir=/etc/default creates=/etc/default/varnish.orig
+           mv varnish varnish.orig
+
+- name: copy /etc/default/varnish to vm
+  copy: src=varnish dest=/etc/default/varnish owner=root group=root mode=0644
+  notify:
+    - restart varnish
