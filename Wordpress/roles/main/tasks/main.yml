@@ -1,5 +1,5 @@
-- name: download wordpress
-  get_url: url=http://wordpress.org/latest.tar.gz dest=/tmp/
+#- name: download wordpress
+#  get_url: url=http://wordpress.org/latest.tar.gz dest=/tmp/
 
 - name: create wordpress db
   mysql_db: name=wordpress state=present
@@ -7,3 +7,19 @@
 - name: create wordpress user
   mysql_user: name=wordpress password={{ wordpress_password }} 
               priv=wordpress.*:ALL state=present
+
+- name: create website dir
+  command: mkdir -p {{ blog_dir }} 
+
+#- name: extract wordpress tarball into {{ blog_dir }}
+  #command: /bin/tar -C {{ blog_dir }} -zxf /tmp/latest.tar.gz 
+           #--strip-components=1
+
+- name: chown {{ blog_dir }} to nobody and nogroup
+  file: path={{ blog_dir }} state=directory owner=nobody group=nogroup
+        recurse=yes
+
+- name: copy wp-config.php to wordpress vm
+  copy: backup=yes src=wp-config.php dest={{ blog_dir }}/wp-config.php
+        owner=nobody group=nogroup mode=0644 
+
