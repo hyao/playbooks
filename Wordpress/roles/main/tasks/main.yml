@@ -1,0 +1,9 @@
+- name: download wordpress
+  get_url: url=http://wordpress.org/latest.tar.gz dest=/tmp/
+
+- name: create wordpress db
+  mysql_db: name=wordpress state=present
+
+- name: create wordpress user
+  mysql_user: name=wordpress password={{ wordpress_password }} 
+              priv=wordpress.* state=present

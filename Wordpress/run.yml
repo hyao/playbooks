@@ -1,0 +1,6 @@
+---
+- hosts: aws2
+  sudo: yes
+
+  roles:
+    - main

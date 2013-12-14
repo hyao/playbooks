@@ -2,6 +2,7 @@
   apt: pkg={{ item }} state=latest
   with_items:
     - python-pip
+    - python-mysqldb
 
 - name: install ansible using pip
   pip: name=ansible

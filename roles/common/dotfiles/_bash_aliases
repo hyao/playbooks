@@ -1,0 +1,15 @@
+alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias agu='sudo apt-get update'
+alias ags='apt-cache search'
+alias agsh='apt-cache show'
+alias agi='sudo apt-get install'
+alias agd='sudo apt-get dist-upgrade'
+alias agg='sudo apt-get upgrade'

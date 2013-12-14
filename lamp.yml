@@ -1,0 +1,7 @@
+---
+- hosts: aws2
+  user: ansible
+
+  roles:
+    # add dotfiles
+    - common

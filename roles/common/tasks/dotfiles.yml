@@ -1,0 +1,6 @@
+---
+- name: copy .bash_aliases to vm
+  copy: src=../dotfiles/_bash_aliases dest=~/.bash_aliases mode=0644
+
+- name: copy .inputrc to vm to enable case insensitive auto completion
+  copy: src=../dotfiles/_inputrc dest=~/.inputrc mode=0644
