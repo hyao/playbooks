@@ -6,4 +6,4 @@
 
 - name: create wordpress user
   mysql_user: name=wordpress password={{ wordpress_password }} 
-              priv=wordpress.* state=present
+              priv=wordpress.*:ALL state=present
