@@ -1,9 +1,14 @@
 - name: install LAMP packages
   apt: pkg={{ item }} state=latest
   with_items:
-    - apache2
+    #- apache2
+    #- libapache2-mod-php5
+    #use the following for better performance
+    - apache2-mpm-worker
+    - libapache2-mod-fastcgi
     - mysql-server
     - php5-mysql
-    - libapache2-mod-php5
     - php5-cli
+    - php-apc
+    - php5-gd
 
