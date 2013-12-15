@@ -4,6 +4,9 @@
     - python-pip
     - python-mysqldb
     - unzip
+  tags:
+    - packages
+    - clients
 
 - name: install ansible using pip
   pip: name=ansible

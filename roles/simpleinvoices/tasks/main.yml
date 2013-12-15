@@ -1,0 +1,40 @@
+- name: install php5-xsl for reports to work
+  apt: pkg=php5-xsl
+  tags:
+    - packages
+
+- name: get simpleinvoices 2011.1
+  get_url: url=http://download.simpleinvoices.org/simpleinvoices/downloads/simpleinvoices.2011.1.zip dest=/tmp/simpleinvoices.zip
+  tags:
+    - bootstrap
+
+- name: extract zip file 
+  command: chdir=/tmp unzip simpleinvoices.zip
+  tags: 
+    - bootstrap
+
+- name: move simpleinvoices dir to {{ site_dir }}
+  command: mv /tmp/simpleinvoices {{ site_dir }}
+  tags:
+    - bootstrap
+
+- name: create mysql db {{ db_name }}
+  mysql_db: name={{ db_name }} state=present
+  tags:
+    - db
+
+- name: create mysql user {{ db_user }}
+  mysql_user: name={{ db_user }} password={{ db_password }} 
+              priv={{ db_name }}.*:ALL state=present
+  tags:
+    - db
+
+- name: cp config.ini via template
+  template: src=config.j2 dest={{ site_dir }}/config/config.ini backup=yes
+  tags:
+    - config
+
+- name: make tmp accessible to simpleinvoices
+  command: chown www-data.www-data -R {{ site_dir }}/tmp 
+  tags:
+    - config

@@ -1,10 +1,10 @@
 ---
-- hosts: aws2
+- hosts: ca1 
   sudo: yes
   gather_facts: no
 
   roles:
-    #- common    
+    - common    
     #- tools
-    - varnish
+    #- varnish
 
