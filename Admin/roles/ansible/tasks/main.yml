@@ -3,6 +3,7 @@
   with_items:
     - python-pip
     - python-mysqldb
+    - python-pycurl
     - unzip
   tags:
     - packages

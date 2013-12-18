@@ -1,0 +1,26 @@
+- name: add jenkins apt key
+  apt_key: url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key state=present
+
+- name: add jenkins repo
+  apt_repository: repo='deb http://pkg.jenkins-ci.org/debian binary/' state=present
+
+- name: install jenkins
+  apt: pkg=jenkins state=latest
+
+- name: copy /etc/default/jenkins to remote
+  template: src=jenkins_conf.j2 dest=/etc/default/jenkins backup=yes
+            owner=root group=root mode=0644
+  notify:
+    - restart jenkins
+
+- name: copy jenkins apache config file to remote server
+  template: src=jenkins_apache.j2 dest=/etc/apache2/sites-available/jenkins
+            owner=root group=root mode=0644 
+
+- name: enable apache proxy modules
+  command: a2enmod proxy proxy_http
+
+- name: enable jenkins site
+  command: a2ensite jenkins
+  notify:
+    - restart apache2
