@@ -1,0 +1,2 @@
+- name: install postgresl
+  apt: pkg=postgresql state=latest
