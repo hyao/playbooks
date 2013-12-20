@@ -1,0 +1,10 @@
+- name: test site dir var
+  shell: chdir=/home/ansible echo {{ item }} >> aa.txt
+  with_items:
+    - "{{ de1_dir }}"
+    - "{{ uk1_dir }}"
+
+#dir in the format of:
+#de1_dir:
+  #- site1
+  #- site2
