@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  vars_files:
+    - sites.yml
+  gather_facts: no
+
+  tasks:
+    - name: test
+      shell: echo "{{ item.0.hostname }}" "{{ item.1 }}" >> ~/aaa.txt 
+      with_subelements:
+        - "{{ websites }}"
+        - site_dirs

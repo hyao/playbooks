@@ -1,0 +1,10 @@
+websites:
+  - hostname: site1.example.com 
+    site_dirs:
+      - /home/user/site1
+      - /home/user/site2
+
+  - hostname: site2.example.com 
+    site_dirs: 
+      - /home/user/site3
+  
