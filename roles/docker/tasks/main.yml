@@ -1,0 +1,24 @@
+- name: install some prerequisite packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - python-pycurl
+
+- name: add docker key to apt
+  apt_key: url=https://get.docker.io/gpg state=present
+
+- name: add docker apt repo
+  apt_repository: repo='deb http://get.docker.io/ubuntu docker main' 
+                  state=present
+
+- name: install lxc-docker
+  apt: pkg=lxc-docker state=latest
+
+- name: add specified user to docker group
+  command: gpasswd -a ansible docker
+  tags:
+    - config
+
+- name: restart docker
+  service: name=docker state=restarted
+  tags:
+    - config

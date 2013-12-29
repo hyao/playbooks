@@ -1,0 +1,2 @@
+ansible ALL=(ALL:ALL) NOPASSWD:ALL
+

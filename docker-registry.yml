@@ -1,0 +1,7 @@
+---
+- hosts: ca1
+  sudo: yes
+  gather_facts: no
+
+  tasks:
+  - include: roles/docker-registry/tasks/main.yml

@@ -1,0 +1,16 @@
+- digital_ocean: >
+      state=present
+      command=droplet
+      name=my-new-droplet
+      client_id={{ client_id }}
+      api_key={{ api_key }}
+      size_id=66                    
+      region_id=3                   
+      image_id=1505447              
+      wait_timeout=500
+  #size 66=512m
+  #region 3=San Francisco
+  #image: ubuntu LTS 12.04.3 64
+  register: my-droplet
+- debug: msg="ID is {{ my-droplet.droplet.id }}"
+- debug: msg="IP is {{ my-droplet.droplet.ip_address }}"
