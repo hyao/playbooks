@@ -1,5 +1,5 @@
 ---
-- hosts: ca1
+- hosts: ca2
   sudo: yes
   gather_facts: no
 
