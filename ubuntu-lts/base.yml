@@ -7,14 +7,14 @@
   shell: echo 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"' > /etc/default/locale
 
 - name: install packages for ansible
-  apt: pkg=$item state=latest
+  apt: pkg={{ item }} state=latest
   with_items:
     - python-jinja2
     - python-yaml
     - python-virtualenv
 
 - name: install common packages
-  apt: pkg=$item state=latest
+  apt: pkg={{ item }} state=latest
   with_items: 
     - vim
     - htop

@@ -2,11 +2,11 @@
 - name: install some desktop packages
   apt: pkg=$item state=latest
   with_items:
-    - myunity
+    #- myunity
     - indicator-multiload
     - gnote
     - usb-creator-gtk
-    - unetbootin
+    #- unetbootin
     #the following 2 packages are best installed manually
     #- ttf-mscorefonts-installer
     #- flashplugin-installer
@@ -14,4 +14,4 @@
     - chromium-browser
     - openjdk-7-jdk
 
-- include: skype.yml
+#- include: skype.yml
