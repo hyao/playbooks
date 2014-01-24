@@ -1,0 +1,7 @@
+---
+
+#update apt cache and upgrade
+#should be the first thing to run
+
+- name: update apt cache and upgrade
+  apt: update_cache=yes upgrade=dist
