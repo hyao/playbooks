@@ -1,0 +1,8 @@
+- name: install packages for awx
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - python-yaml
+    - python-crypto
+
+- name: install ansible for AWX
+  pip: name=ansible state=present

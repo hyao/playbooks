@@ -1,0 +1,5 @@
+---
+# defaults file for apache2
+
+apache2_vhosts: 
+  - files.starvm.com

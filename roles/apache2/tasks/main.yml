@@ -1,0 +1,20 @@
+---
+# tasks file for apache2
+
+- name: install packages {{ item }}
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - apache2-mpm-worker
+  notify:
+    - start apache2
+
+- name: copy vhosts to vm
+  copy: src={{ item }} dest=/etc/apache2/sites-availabe/
+        owner=root group=root 
+  with_items: apache2_vhosts 
+  
+- name: enable vhosts
+  command: a2ensite {{ item }}
+  with_items: apache2_vhosts
+  notify:
+    - restart apache2
