@@ -1,6 +1,0 @@
----
-- name: remove php5-fpm pool "{{ pool_name }}"
-  command: rm /etc/php5/fpm/pool.d/{{ pool_name }}.conf 
-  notify:
-    - restart php5-fpm
-

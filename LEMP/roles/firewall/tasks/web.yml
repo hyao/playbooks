@@ -1,9 +1,0 @@
-- name: install ufw
-  apt: pkg=ufw state=present
-
-- name: run ufw commands to set up firewall rules
-  script: ../scripts/setup-firewall.sh
-
-- name: set up firewall rules for de1 mysql access
-  script: ../scripts/de1-mysql.sh
-  when: inventory_hostname == 'de1'
