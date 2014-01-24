@@ -2,4 +2,7 @@
 # defaults file for apache2
 
 apache2_vhosts: 
-  - files.starvm.com
+  - vhost_name: files.starvm.com
+    listen_ip: '*'
+    listen_port: 80
+    dir: /var/www/files.starvm.com

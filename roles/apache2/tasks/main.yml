@@ -9,12 +9,17 @@
     - start apache2
 
 - name: copy vhosts to vm
-  copy: src={{ item }} dest=/etc/apache2/sites-availabe/
-        owner=root group=root 
+  template: src=vhost.conf.j2 dest=/etc/apache2/sites-available/{{ item.vhost_name }}
+             owner=root group=root mode=0644
   with_items: apache2_vhosts 
-  
+
+- name: create website dirs
+  file: path={{ item.dir }} owner=www-data group=www-data mode=0755
+        state=directory
+  with_items: apache2_vhosts  
+
 - name: enable vhosts
-  command: a2ensite {{ item }}
+  command: a2ensite {{ item.vhost_name }}
   with_items: apache2_vhosts
   notify:
     - restart apache2
