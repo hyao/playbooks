@@ -1,4 +1,6 @@
-- name: install some common admin tools
+---
+
+- name: install some tools
   apt: pkg={{ item }} state=latest
   with_items:
     - htop

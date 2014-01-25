@@ -1,0 +1,8 @@
+---
+
+- name: playbook to deploy roles
+  hosts: aws4
+  sudo: yes
+
+  roles:
+    - tools
