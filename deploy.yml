@@ -1,8 +1,9 @@
 ---
 
 - name: playbook to deploy roles
-  hosts: aws4
+  hosts: ca4 
   sudo: yes
 
   roles:
-    - tools
+    #- tools
+    - couchdb

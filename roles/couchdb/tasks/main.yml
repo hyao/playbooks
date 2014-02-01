@@ -1,0 +1,59 @@
+---
+# tasks file for couchdb
+
+- name: download couchdb deb
+  get_url: url=http://files.starvm.com/packages/apache-couchdb_1.5.0-1_amd64.deb
+           dest=/tmp
+
+- name: install couchdb dependencies
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - erlang-os-mon 
+    - erlang-asn1 
+    - erlang-inets 
+    - erlang-xmerl 
+    - libicu48 
+    - libmozjs185-1.0
+
+- name: dpkg -i couchdb deb
+  command: dpkg -i /tmp/apache-couchdb_1.5.0-1_amd64.deb
+
+- name: ln -sf /usr/local/etc/logrotate.d/couchdb /etc/logrotate.d/couchdb
+  command: ln -sf /usr/local/etc/logrotate.d/couchdb /etc/logrotate.d/couchdb
+
+- name: ln -sf /usr/local/etc/init.d/couchdb  /etc/init.d/
+  command: ln -sf /usr/local/etc/init.d/couchdb  /etc/init.d/
+
+- name: update-rc.d couchdb defaults
+  command: update-rc.d couchdb defaults
+
+- name: create couchdb user
+  shell: mkdir -p /usr/local/var/lib/couchdb && adduser --system --home /usr/local/var/lib/couchdb --no-create-home --shell /bin/bash --group --gecos "CouchDB" couchdb
+
+- name: create dirs for couchdb
+  command: mkdir -p {{ item }}
+  with_items:
+    - /usr/local/var/log/couchdb
+    - /usr/local/var/run/couchdb
+
+- name: chown and chmod dirs
+  shell: chown -R couchdb.couchdb {{ item }} &&
+         chmod -R 0770 {{ item }}
+  with_items:
+    - /usr/local/etc/couchdb
+    - /usr/local/var/lib/couchdb
+    - /usr/local/var/log/couchdb
+    - /usr/local/var/run/couchdb
+
+#set respawn to empty value so service couchdb works
+- name: copy couchdb to /usr/local/etc/default/couchdb
+  copy: src=etc_default_couchdb dest=/usr/local/etc/default/couchdb
+        owner=couchdb group=couchdb mode=0644
+
+- name: change listen ip to 0.0.0.0
+  lineinfile: dest=/usr/local/etc/couchdb/local.ini
+              line="bind_address = 0.0.0.0"
+              insertafter="^;bind_address = 127.0.0.1"
+  notify:
+    - start couchdb
+

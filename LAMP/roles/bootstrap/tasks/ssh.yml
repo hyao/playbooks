@@ -1,1 +1,1 @@
-../../../../LEMP/roles/common/tasks/ssh.yml
+/opt/repo/LEMP_Playbooks/roles/common/tasks/ssh.yml
