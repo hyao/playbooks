@@ -1,0 +1,27 @@
+#create a swap file and add an entry to /etc/fstab
+#ref: http://www.cyberciti.biz/faq/linux-add-a-swap-file-howto/
+- name: create a swapfile if not already exists
+  #count=512M*1024
+  command: creates=/swapfile 
+           /bin/dd if=/dev/zero of=/swapfile bs=1024 count=524288
+
+- name: chown and chmod /swapfile
+  shell: chown root:root /swapfile && chmod 0600 /swapfile
+
+- name: backup /etc/fstab
+  command: creates=/etc/fstab.orig /bin/mv /etc/fstab /etc/fstab.orig
+
+- name: copy swapfile line to remote
+  copy: src=swap_line_fstab dest=/etc/swap_line_fstab
+
+- name: concat fstab.orig and swapfile line to /etc/fstab
+  shell: cat /etc/fstab.orig /etc/swap_line_fstab > /etc/fstab
+
+- name: remove /etc/swap_line_fstab
+  command: rm /etc/swap_line_fstab
+
+- name: mkswap swapfile
+  command: /sbin/mkswap /swapfile
+
+- name: activate swap file
+  command: /sbin/swapon -a

@@ -1,9 +1,10 @@
 ---
 
 - name: playbook to deploy roles
-  hosts: ca4 
+  hosts: hufeisen-root 
   sudo: yes
 
   roles:
     #- tools
-    - couchdb
+    #- couchdb
+    - swapfile

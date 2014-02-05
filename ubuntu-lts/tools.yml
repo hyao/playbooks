@@ -1,6 +1,6 @@
 ---
 - name: install commonly used tools
-  apt: pkg=$item state=latest
+  apt: pkg={{ item }} state=latest
   with_items:
     - axel
     - cdargs

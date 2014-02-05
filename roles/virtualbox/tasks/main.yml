@@ -6,5 +6,5 @@
 - name: add virtualbox repo
   apt_repository: repo='deb http://download.virtualbox.org/virtualbox/debian precise contrib'     state=present
 
-- name: install virtualbox-4.2
-  apt: pkg=virtualbox-4.2 update_cache=yes state=latest
+- name: install virtualbox-4.3
+  apt: pkg=virtualbox-4.3 update_cache=yes state=latest

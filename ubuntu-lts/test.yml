@@ -4,5 +4,8 @@
   sudo: True
   gather_facts: False
 
-  tasks:
-  - include: desktop.yml
+  roles:
+    - virutalbox
+
+  #tasks:
+  #- include: desktop.yml
