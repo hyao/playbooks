@@ -1,11 +1,12 @@
 #test one playbook a time
 ---
-- hosts: localhost
+- hosts: hp1 
   sudo: True
   gather_facts: False
 
-  roles:
-    - virutalbox
+  #roles:
+    #- virutalbox
 
-  #tasks:
+  tasks:
   #- include: desktop.yml
+    - include: xen.yml
