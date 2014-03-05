@@ -1,0 +1,13 @@
+----
+-
+-aws_access_key: 
+-aws_secret_key: 
+-region: us-east-1
+-keypair: aws-us-east-1
+-instance_type: m1.small 
+-
+-# latest Ubuntu Saucy 64bit EBS
+-# http://cloud-images.ubuntu.com/locator/ec2/
+-image: ami-35dbde5c
+-
+-security_group: launch-wizard-1 
