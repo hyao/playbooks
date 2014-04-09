@@ -4,4 +4,5 @@
   with_items:
     - axel
     - cdargs
+    - unzip
     - p7zip-full

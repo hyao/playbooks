@@ -1,7 +1,7 @@
 #test one playbook a time
 ---
 - hosts: localhost 
-  sudo: False 
+  sudo: True 
   gather_facts: False
 
   #roles:
@@ -9,5 +9,6 @@
 
   tasks:
   #- include: desktop.yml
-    #- include: base.yml
+    - include: base.yml
     - include: configure_git.yml
+    - include: tools.yml
