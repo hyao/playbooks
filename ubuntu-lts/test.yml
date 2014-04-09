@@ -1,7 +1,7 @@
 #test one playbook a time
 ---
-- hosts: hp1 
-  sudo: True
+- hosts: localhost 
+  sudo: False 
   gather_facts: False
 
   #roles:
@@ -9,4 +9,5 @@
 
   tasks:
   #- include: desktop.yml
-    - include: xen.yml
+    #- include: base.yml
+    - include: configure_git.yml

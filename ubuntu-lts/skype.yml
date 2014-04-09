@@ -1,9 +1,0 @@
----
-- name: download skype package - may need to change to suit your own needs
-  get_url: url=http://skype.tom.com/download/linux/skype-ubuntu-precise_4.2.0.11-1_i386.deb dest=/opt/downloads/skype-ubuntu-precise_4.2.0.11-1_i386.deb 
-
-- name: install skype deb
-  command: dpkg -i /opt/downloads/skype-ubuntu-precise_4.2.0.11-1_i386.deb
-
-- name: apt-get -f install
-  command: apt-get -f install
