@@ -1,16 +1,17 @@
 ---
 - name: install some desktop packages
-  apt: pkg=$item state=latest
+  apt: pkg={{ item }} state=latest
   with_items:
-    #- myunity
+    - unity-tweak-tool 
     - indicator-multiload
     - gnote
     - usb-creator-gtk
-    #the following 2 packages are best installed manually
+    - hamster-indicator
+    # the following 2 packages are best installed manually
     #- ttf-mscorefonts-installer
     #- flashplugin-installer
     - ttf-xfree86-nonfree # used for terminal
     - chromium-browser
     - openjdk-7-jdk
-
-#- include: skype.yml
+    - gvncviewer
+    - skype

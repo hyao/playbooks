@@ -1,0 +1,6 @@
+---
+
+- name: install python packages using pip
+  pip: name={{ item }} state=latest
+  with_items:
+    - awscli
