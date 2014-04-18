@@ -1,0 +1,4 @@
+---
+
+mongo_dbpath: /opt/var/lib/mongodb
+mongo_logpath: /opt/var/log/mongodb/mongod.log

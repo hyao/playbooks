@@ -4,5 +4,7 @@
   with_items:
     - axel
     - cdargs
+    - task
     - unzip
     - p7zip-full
+    - debconf-utils

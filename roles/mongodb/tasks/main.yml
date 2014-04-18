@@ -1,0 +1,39 @@
+---
+# install latest mongodb-org from mongodb.org
+# based on: 
+# http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
+
+- name: import MongoDB public GPG Key
+  apt_key: url=http://docs.mongodb.org/10gen-gpg-key.asc 
+           id=7F0CEB10 state=present 
+
+- name: create a sources.list file for mongodb
+  shell: echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+
+- name: install mongodb-org
+  apt: pkg=mongodb-org update_cache=yes state=latest
+  notify:
+    - start mongod
+
+- name: backup /etc/mongod.conf
+  command: chdir=/etc/ creates=mongod.conf.orig
+           cp mongod.conf mongod.conf.orig
+
+- name: create mongo db dir
+  file: path={{ mongo_dbpath }} state=directory 
+        owner=mongodb group=mongodb 
+
+- name: change mongodb db dir
+  shell: chdir=/etc 
+         sed  -e "s,/var/lib/mongodb,{{ mongo_dbpath }}," mongod.conf.orig |             sudo tee mongod.conf
+
+- name: stop mongod
+  service: name=mongod state=stopped
+
+- name: remove old mongo db dir
+  file: path=/var/lib/mongodb state=absent
+
+- name: restart mongod
+  service: name=mongod state=restarted
+
+
