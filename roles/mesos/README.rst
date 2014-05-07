@@ -1,5 +1,5 @@
 
-Mesos - Ansible playbooks to build mesos on Ubuntu Trusty
+Mesos - Ansible playbook to build Mesos
 ===========================================================
 
 Ansible playbooks to build Apache Mesos (http://mesos.apache.org/gettingstarted/) on Ubuntu 14.04.
