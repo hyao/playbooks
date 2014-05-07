@@ -1,0 +1,42 @@
+---
+
+#- name: update apt cache
+#  apt: update_cache=yes
+
+- name: install prerequisites
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - build-essential
+    - openjdk-7-jdk
+    - python-dev
+    # - python-boto
+    - libcurl4-nss-dev
+    - libsasl2-dev
+    # uncomment following if building from git repo
+    # - autoconf
+    # - libtool
+  sudo: True
+
+- name: download mesos
+  get_url: url=http://www.apache.org/dist/mesos/{{ mesos_version }}/mesos-{{ mesos_version }}.tar.gz
+           dest=/tmp/mesos-{{ mesos_version }}.tar.gz
+
+- name: rm -rf /tmp/mesos-{{ mesos_version }}
+  command: rm -rf /tmp/mesos-{{ mesos_version }}
+
+- name: extract mesos
+  command: chdir=/tmp tar xvzf mesos-{{ mesos_version }}.tar.gz
+
+- name: build mesos - configure
+  command: chdir=/tmp/mesos-{{ mesos_version }}
+           ./configure 
+
+- name: build mesos - make 
+  command: chdir=/tmp/mesos-{{ mesos_version }}
+           make -j {{ mesos_num_jobs }}
+
+#- name: build mesos - run tests 
+#  command: chdir=/tmp/mesos-{{ mesos_version }}
+#           make -j {{ mesos_num_jobs }} check
+
+

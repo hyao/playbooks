@@ -1,0 +1,5 @@
+---
+
+mesos_version: 0.18.0
+# number of jobs to run for make
+mesos_num_jobs: 4

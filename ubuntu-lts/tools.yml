@@ -2,6 +2,7 @@
 - name: install commonly used tools
   apt: pkg={{ item }} state=latest
   with_items:
+    - curl
     - axel
     - cdargs
     - task
