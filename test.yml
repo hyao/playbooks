@@ -1,0 +1,10 @@
+---
+
+- hosts: localhost
+  sudo: false 
+  gather_facts: False
+
+  roles:
+    # - ec2
+    # - mongodb
+    - mesos

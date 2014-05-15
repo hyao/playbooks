@@ -1,5 +1,7 @@
 ---
 # tasks file for apache2
+# update for apache 2.4
+# use the name vhost.conf instead of vhost so a2ensite would find it
 
 - name: install packages {{ item }}
   apt: pkg={{ item }} state=latest
@@ -9,7 +11,7 @@
     - start apache2
 
 - name: copy vhosts to vm
-  template: src=vhost.conf.j2 dest=/etc/apache2/sites-available/{{ item.vhost_name }}
+  template: src=vhost.conf.j2 dest=/etc/apache2/sites-available/{{ item.vhost_name }}.conf
              owner=root group=root mode=0644
   with_items: apache2_vhosts 
 
@@ -17,6 +19,9 @@
   file: path={{ item.dir }} owner=www-data group=www-data mode=0755
         state=directory
   with_items: apache2_vhosts  
+
+- name: disable default site
+  command: a2dissite 000-default
 
 - name: enable vhosts
   command: a2ensite {{ item.vhost_name }}
