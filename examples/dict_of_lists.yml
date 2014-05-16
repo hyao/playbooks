@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  gather_facts: no
+  
+  tasks:
+    - debug: msg=" key {{ item.key }} , values {{ item.value[0] }} {{ item.value[1] }}"
+      with_dict:
+        d1: [1, a]
+        d2: [2, b]
+
+
