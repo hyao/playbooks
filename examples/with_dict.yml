@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  gather_facts: no
+  
+  tasks:
+    - debug: msg=" key {{ item.key }} , value {{ item.value }}"
+      with_dict:
+        alice: value1
+        bob: value2
+        vm.dirty_ratio: 10 
+        net.ipv5.tcp_syncookies: 1 
+
+
