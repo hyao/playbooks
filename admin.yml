@@ -4,4 +4,5 @@
   gather_facts: no
 
   roles:
-    - ansible 
+    #- ansible 
+    - tools
