@@ -1,20 +1,46 @@
+---
+
 - name: install some prerequisite packages
   apt: pkg={{ item }} state=present
   with_items:
     - python-pycurl
+  tags:
+    - repo
 
 - name: add docker key to apt
-  apt_key: url=https://get.docker.io/gpg state=present
+  command: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
+  tags:
+    - repo
 
 - name: add docker apt repo
-  apt_repository: repo='deb http://get.docker.io/ubuntu docker main' 
+  apt_repository: repo='deb {{ docker_repo }} docker main' 
                   state=present
+  tags:
+    - repo
 
 - name: install lxc-docker
   apt: pkg=lxc-docker state=latest
+  tags:
+    - repo
 
-- name: add specified user to docker group
-  command: gpasswd -a ansible docker
+- name: add specified users to docker group
+  command: gpasswd -a {{ item }} docker
+  with_items: docker_users
+  tags:
+    - config
+
+# change docker storage dir
+- name: mkdir -p {{ docker_dir }}
+  file: path={{ docker_dir }} state=directory
+  when: change_docker_dir == true
+  tags:
+    - config
+
+- name: add docker_dir to /etc/default/docker
+  lineinfile: dest=/etc/default/docker
+              line='DOCKER_OPTS="-g {{ docker_dir }}"'
+              state=present
+  when: change_docker_dir == true
   tags:
     - config
 

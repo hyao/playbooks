@@ -1,0 +1,15 @@
+---
+
+# change where docker stores its files
+# change change_docker_dir to true to enable
+change_docker_dir: false
+docker_dir: /opt/vm/var_lib_docker 
+
+# add these users to docker group
+docker_users:
+  - ansible
+  - op
+
+docker_repo: "http://get.docker.io/ubuntu"
+# docker_repo: "http://mirror.yandex.ru/mirrors/docker/"
+
