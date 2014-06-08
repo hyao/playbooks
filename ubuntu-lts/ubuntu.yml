@@ -4,8 +4,8 @@
   sudo: True 
   gather_facts: False
 
-  #roles:
-    #- virutalbox
+  roles:
+    - virtualbox
 
   tasks:
     - include: base.yml
@@ -17,6 +17,7 @@
 
 - name: run playbooks for current user
   hosts: localhost 
+  hosts: dm3
   sudo: False 
   gather_facts: False
 

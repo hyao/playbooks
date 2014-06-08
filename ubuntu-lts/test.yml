@@ -1,8 +1,8 @@
-- hosts: localhost
+- hosts: dm3 
   sudo: True
   gather_facts: no
 
   tasks:
-    #- include: tools.yml
-    # - include: fcitx.yml
+    - include: tools.yml
+    - include: fcitx.yml
     - include: desktop.yml
