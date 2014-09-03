@@ -1,10 +1,25 @@
 ---
 
 - name: download wp-cli.phar
-  command: wget https://github.com/wp-cli/wp-cli/releases/download/v0.13.0/wp-cli.phar
+  command: wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 - name: chmod +x wp-cli.phar
   command: chmod +x wp-cli.phar
 
 - name: mv wp-cli.phar /usr/local/bin/wp
   command: mv wp-cli.phar /usr/local/bin/wp
+
+- name: mkdir scripts
+  file: path=/home/ansible/scripts
+        state=directory
+        owner=ansible group=ansible mode=0755
+
+- name: download bash completion script
+  get_url: url=https://github.com/wp-cli/wp-cli/raw/master/utils/wp-completion.bash
+           dest=/home/ansible/scripts/wp-completion.bash
+           mode=0644
+
+- name: add to bashrc
+  lineinfile: dest=/home/ansible/.bashrc
+              line='source /home/ansible/scripts/wp-completion.bash'
+              state=present
