@@ -1,4 +1,1 @@
-#listen to localhost only to use proxy
-HTTP_HOST: 127.0.0.1
-HTTP_PORT: 18080
-jenkins_server_name: ci.starvm.com
+cf-ci.yml

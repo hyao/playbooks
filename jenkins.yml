@@ -1,0 +1,5 @@
+- hosts: cf-ci
+  sudo: yes
+
+  roles:
+    - jenkins

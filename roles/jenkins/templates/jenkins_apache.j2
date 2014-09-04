@@ -1,13 +1,19 @@
 <VirtualHost *:80>
+
         ServerAdmin webmaster@localhost
         ServerName {{ jenkins_server_name }} 
         ServerAlias ci
         ProxyRequests Off
+
         <Proxy *>
                 Order deny,allow
                 Allow from all
         </Proxy>
+
         ProxyPreserveHost on
-        ProxyPass / http://localhost:{{ HTTP_PORT }}/
+        ProxyPass / http://localhost:{{ HTTP_PORT }}/ nocanon
+        ProxyPassReverse / http://localhost:{{ HTTP_PORT }}/
+        AllowEncodedSlashes NoDecode
+
 </VirtualHost>
 
